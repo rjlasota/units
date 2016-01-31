@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+	    <meta charset="UTF-8">
 		<style>
 			body {
 				font-family: Monospace;
@@ -19,10 +20,6 @@
 		<script src="lib/Coordinates.js"></script>
 		<script src="lib/OrbitAndPanControls.js"></script>
 		<script src="lib/TrackballControls.js"></script>
-		<script src="lib/uclass_TeapotGeometry.js"></script>
-		<script src="lib/uclass_TeacupGeometry.js"></script>
-		<script src="lib/uclass_TeaspoonGeometry.js"></script>
-		<script src="lib/uclass_BeveledBlockGeometry.js"></script>
 		<script src="lib/uclass_shaders.js"></script>
 		<script src="lib/stats.min.js"></script>
 		<script src="lib/dat.gui.min.js"></script>
@@ -55,8 +52,26 @@
 			if ( ! Detector.webgl ) {
 				Detector.addGetWebGLMessage();
 			}
+			else {
+				elem = document.createElement("div");
+				elem.id = 'myID';
+				elem.innerHTML =
+					['<br><form name="run"><label>&nbsp;Select script:</label>',
+							'<select name="demo"',
+							' OnChange="location.href=run.demo.options[selectedIndex].value">',
+							'	 <option selected>Select demo',
+							'	 	<option value="?load=units.js">Scientific Units',
+							'	 	<option value="?load=celestial.js">Celestial Sphere',
+							'	 	<option value="?load=nothing.js">Nothing',
+							'</select>'].join('\n');
+
+					if ('undefined' !== typeof loadScript) {
+						elem.innerHTML = elem.innerHTML + "&nbsp;Showing " + loadScript;
+					}
+					elem.innerHTML = elem.innerHTML + "</form><br/>";
+
+					document.body.insertBefore(elem,document.body.childNodes[0])
+			}
 		</script>
-		<script src="units.js"></script>
-Scientific Units
 	</body>
 </html>
